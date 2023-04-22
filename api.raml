@@ -1,0 +1,87 @@
+#%RAML 1.0
+title: REST API documentation
+mediaType: application/json
+
+/api:
+  /contrevenants:
+    get:
+        description: Retourne une liste des constats d'infractions ayant eu lieu les dates specifies.
+        queryParameters:
+            du:
+                description: Date de debut en format ISO 8601
+                type: string
+                required: true
+                example: 2015-01-01
+            au:
+                description: Date de fin en format ISO 8601
+                type: string
+                required: true
+                example: 2023-12-31
+        responses:
+            200:
+                body:
+                    application/json:
+
+            400:
+                body:
+                    application/json:
+                        example: |
+                             {"error": "Donnees manquante. Vous devez fournir 2 dates valides."}
+            500:
+                body:
+                    application/json:
+                        example: |
+                             {"error": "la requete ne retourne aucune donnee"}
+  /etablissement:
+    post:
+        description:  mode de recherche par nom d'etablissement. Le service affiche l'information des differentes infractions du restaurant.
+        queryParameters:
+            nom:
+                description: nom d'etablissement
+                type: string
+                required: true
+                example: |
+                    "amir"
+        responses:
+            200:
+                body:
+                    application/json:
+            400
+                body:
+                    application/json:
+                        example: |
+                             {"error": "Aucune donnee ne correspond a vos critere de recherche"}
+  /top_contrevenants:
+    get:
+        description:  permettant d'obtenir la liste des etablissements ayant commis une ou
+                      plusieurs infractions. Pour chaque etablissement, on indique le nombre d'infractions connues. La liste
+                      est triee en ordre decroissant du nombre d'infractions
+        responses:
+            200:
+                body:
+                     application/json:
+    post:
+        description:  permettant d'obtenir la liste des etablissements ayant commis une ou
+                      plusieurs infractions. Pour chaque etablissement, on indique le nombre d'infractions connues. La liste
+                      est triee en ordre decroissant du nombre d'infractions
+        responses:
+            200:
+                body:
+                     application/json:
+  /top_contrevenants_xml:
+    get:
+        description:  permettant d'obtenir la liste des etablissements ayant commis une ou
+                      plusieurs infractions. Pour chaque etablissement, on indique le nombre d'infractions connues. La liste
+                      est triee en ordre decroissant du nombre d'infractions.
+        responses:
+           200:
+               body:
+                    text/xml:
+    post:
+        description: permettant d'obtenir la liste des etablissements ayant commis une ou
+                     plusieurs infractions. Pour chaque etablissement, on indique le nombre d'infractions connues. La liste
+                     est triee en ordre decroissant du nombre d'infractions
+        responses:
+           200:
+               body:
+                   text/xml:

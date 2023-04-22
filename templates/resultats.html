@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    {% if constats %}
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-4">
+                <h2 class="heading-section">Résultats de la recherche :</h2>
+            </div>
+        </div>
+        <div class="row table-responsive">
+
+            <table class="table">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col">date_constat</th>
+                    <th scope="col">adresse</th>
+                    <th scope="col">date_jugement</th>
+                    <th scope="col">etablissement</th>
+                    <th scope="col">montant</th>
+                    <th scope="col">proprietaire</th>
+                    <th scope="col">ville</th>
+                    <th scope="col">status</th>
+                    <th scope="col">date_status</th>
+                    <th scope="col">categorie</th>
+                    <th>&nbsp;</th>
+                <tbody>
+                {% for constat in constats %}
+                    <tr style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#collapse{{ constat.id_poursuite }}"
+                        aria-expanded="false" aria-controls="collapse{{ constat.id_poursuite }}">
+                        <td>{{ constat.date }}</td>
+                        <td>{{ constat.adresse }}</td>
+                        <td>{{ constat.date_jugement}}</td>
+                        <td>{{ constat.etablissement }}</td>
+                        <td>{{ constat.montant}} $</td>
+                        <td>{{ constat.proprietaire }}</td>
+                        <td>{{ constat.ville }}</td>
+                        <td>{{ constat.status }}</td>
+                        <td>{{ constat.date_status }}</td>
+                        <td>{{ constat.categorie }}</td>
+                        <td>
+{##}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                 fill="currentColor" class="bi bi-file-plus" viewBox="0 0 16 16">
+                                <path d="M8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5V6z"></path>
+                                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"></path>
+                            </svg>
+
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="20" class="collapse" id="collapse{{ constat.id_poursuite }}">
+                            <p>{{ constat.description }}</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% else %}
+        <h2 class="row justify-content-center"> Aucun constat ne correspond à vos criteres.</h2>
+    {% endif %}
+{% endblock %}
